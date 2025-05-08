@@ -30,33 +30,38 @@ const StepSelectPoints: React.FC = () => {
   const handleClear = () => setPoints(Array(colorOptions.length).fill(0));
 
   return (
-    <div className="w-full max-w-lg mx-auto bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg">
-      <Header />
-      <p className="text-center text-gray-700 text-sm mb-4">
-        Informe qual a cor da caixa que você escolheu:
-      </p>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        {colorOptions.map((opt, idx) => (
-          <ColorBox
-            key={idx}
-            color={opt.color}
-            label={points[idx] > 0 ? `${points[idx]}x` : ''}
-            selected={points[idx] > 0}
-            onClick={() => handleBoxClick(idx)}
-          />
-        ))}
+    <div className="relative w-full max-w-lg mx-auto">
+      <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg">
+        <Header />
+        <p className="text-center text-gray-700 text-sm mb-4">
+          Informe qual a cor da caixa que você escolheu:
+        </p>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          {colorOptions.map((opt, idx) => (
+            <ColorBox
+              key={idx}
+              color={opt.color}
+              label={points[idx] > 0 ? `${points[idx]}x` : ''}
+              selected={points[idx] > 0}
+              onClick={() => handleBoxClick(idx)}
+            />
+          ))}
+        </div>
+        <button
+          className="text-xs text-blue-500 underline mb-12"
+          onClick={handleClear}
+          type="button"
+          disabled={loading}
+        >
+          Limpar pontos
+        </button>
+
+        {loading && <span className="text-xs text-gray-500 mt-2">Analisando afinidade...</span>}
+        {error && <span className="text-xs text-red-500 mt-2">{error}</span>}
       </div>
-      <button
-        className="text-xs text-blue-500 underline mb-2"
-        onClick={handleClear}
-        type="button"
-        disabled={loading}
-      >
-        Limpar pontos
-      </button>
-      <ConfirmButton onClick={analyzeColors} disabled={totalPoints !== maxPoints || loading} />
-      {loading && <span className="text-xs text-gray-500 mt-2">Analisando afinidade...</span>}
-      {error && <span className="text-xs text-red-500 mt-2">{error}</span>}
+      <div className="absolute left-1/2 -translate-x-1/2 -bottom-8 w-11/12 max-w-xs">
+        <ConfirmButton onClick={analyzeColors} disabled={totalPoints !== maxPoints || loading} />
+      </div>
     </div>
   );
 };
