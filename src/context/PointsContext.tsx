@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import api from '@/lib/axios';
 
-// Tipos
 interface Profession {
   id: number;
   name: string;
@@ -22,6 +22,24 @@ interface School {
   isActive: boolean;
 }
 
+export const SCHOOL_COLORS: Record<string, string> = {
+  'Direito': '#ED174C',
+  'Gestão e Negócios': '#008FD5',
+  'Saúde': '#9ACA3C',
+  'Politécnica': '#00A79D',
+  'Humanidades': '#F58220',
+  'Indústria Criativa': '#D01481',
+};
+
+export const COLOR_LABELS = [
+  'vermelho',        // Direito
+  'azul',            // Gestão e Negócios
+  'verde claro',     // Saúde
+  'verde',           // Politécnica
+  'laranja',         // Humanidades
+  'rosa',            // Indústria Criativa
+];
+
 interface PointsContextProps {
   points: number[];
   setPoints: React.Dispatch<React.SetStateAction<number[]>>;
@@ -33,6 +51,11 @@ interface PointsContextProps {
   courses: Course[];
   selectedCourse: Course | null;
   selectCourse: (course: Course) => void;
+  analyzeColors: () => Promise<void>;
+  loading: boolean;
+  error: string | null;
+  totemId: string;
+  setTotemId: (id: string) => void;
 }
 
 const PointsContext = createContext<PointsContextProps | undefined>(undefined);
@@ -40,67 +63,48 @@ const PointsContext = createContext<PointsContextProps | undefined>(undefined);
 const MAX_POINTS = 7;
 const COLOR_COUNT = 6;
 
-// MOCK: dados da API
-const MOCK_DATA = {
-  school: {
-    id: 3,
-    name: 'Saúde',
-    color: 'verde claro',
-    url: 'https://www.unisinos.br/escolas/saude',
-    isActive: true,
-  },
-  courses: [
-    {
-      id: 53,
-      name: 'Biomedicina',
-      description: null,
-      professions: [
-        { id: 261, name: 'Biomédico', description: null },
-        { id: 262, name: 'Pesquisador em Biomedicina', description: null },
-        { id: 263, name: 'Analista Clínico', description: null },
-        { id: 264, name: 'Especialista em Análises Clínicas', description: null },
-        { id: 265, name: 'Consultor em Biomedicina', description: null },
-      ],
-    },
-    {
-      id: 54,
-      name: 'Educação Física',
-      description: null,
-      professions: [
-        { id: 266, name: 'Professor de Educação Física', description: null },
-        { id: 267, name: 'Personal Trainer', description: null },
-        { id: 268, name: 'Preparador Físico', description: null },
-        { id: 269, name: 'Fisioterapeuta Esportivo', description: null },
-        { id: 270, name: 'Gestor Esportivo', description: null },
-      ],
-    },
-    // ...adicione mais cursos se quiser
-  ],
-};
-
-export const SCHOOL_COLORS: Record<string, string> = {
-  'Direito': '#ED174C',
-  'Gestão e Negócios': '#008FD5',
-  'Saúde': '#9ACA3C',
-  'Politécnica': '#00A79D',
-  'Humanidades': '#F58220',
-  'Indústria Criativa': '#D01481',
-};
-
 export const PointsProvider = ({ children }: { children: ReactNode }) => {
   const [points, setPoints] = useState<number[]>(Array(COLOR_COUNT).fill(0));
-  const [step, setStep] = useState(0); // 0 = seleção, 1 = escola/cursos, 2 = profissões, 3 = QRCode
+  const [step, setStep] = useState(0); 
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [school, setSchool] = useState<School | null>(null);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [totemId, setTotemId] = useState('');
 
   const reset = () => {
     setPoints(Array(COLOR_COUNT).fill(0));
     setStep(0);
     setSelectedCourse(null);
+    setSchool(null);
+    setCourses([]);
+    setError(null);
   };
 
   const selectCourse = (course: Course) => {
     setSelectedCourse(course);
     setStep(2);
+  };
+
+  const analyzeColors = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const colors: string[] = points.flatMap((count, idx) => Array(count).fill(COLOR_LABELS[idx]));
+      const body = {
+        totemId,
+        colors,
+      };
+      const response = await api.post('/totem/analyze-colors', body);
+      setSchool(response.data.school);
+      setCourses(response.data.courses);
+      setStep(1);
+    } catch {
+      setError('Erro ao analisar as cores. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -111,10 +115,15 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
       step,
       setStep,
       reset,
-      school: MOCK_DATA.school,
-      courses: MOCK_DATA.courses,
+      school,
+      courses,
       selectedCourse,
       selectCourse,
+      analyzeColors,
+      loading,
+      error,
+      totemId,
+      setTotemId,
     }}>
       {children}
     </PointsContext.Provider>

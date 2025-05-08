@@ -5,16 +5,16 @@ import ConfirmButton from './ConfirmButton';
 import { usePoints } from '@/context/PointsContext';
 
 const colorOptions = [
-  { color: '#ED174C' }, // Escola de Direito
-  { color: '#008FD5' }, // Escola de Gestão e Negócios 
-  { color: '#9ACA3C' }, // Escola de Saúde
-  { color: '#00A79D' }, // Escola Politécnica
-  { color: '#F58220' }, // Escola de Humanidades:
-  { color: '#D01481' }, // Escola da Industria Criativa
+  { color: '#ED174C' }, // Direito
+  { color: '#008FD5' }, // Gestão e Negócios 
+  { color: '#9ACA3C' }, // Saúde
+  { color: '#00A79D' }, // Politécnica
+  { color: '#F58220' }, // Humanidades
+  { color: '#D01481' }, // Indústria Criativa
 ];
 
 const StepSelectPoints: React.FC = () => {
-  const { points, setPoints, maxPoints, setStep } = usePoints();
+  const { points, setPoints, maxPoints, analyzeColors, loading, error } = usePoints();
   const totalPoints = points.reduce((acc, val) => acc + val, 0);
 
   const handleBoxClick = (idx: number) => {
@@ -30,9 +30,9 @@ const StepSelectPoints: React.FC = () => {
   const handleClear = () => setPoints(Array(colorOptions.length).fill(0));
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-4xl p-6 flex flex-col items-center shadow-lg">
+    <div className="w-full max-w-lg mx-auto bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg">
       <Header />
-      <p className="text-center text-gray-700 text-base mb-4">
+      <p className="text-center text-gray-700 text-sm mb-4">
         Informe qual a cor da caixa que você escolheu:
       </p>
       <div className="grid grid-cols-2 gap-4 mb-4">
@@ -50,10 +50,13 @@ const StepSelectPoints: React.FC = () => {
         className="text-xs text-blue-500 underline mb-2"
         onClick={handleClear}
         type="button"
+        disabled={loading}
       >
         Limpar pontos
       </button>
-      <ConfirmButton onClick={() => setStep(1)} disabled={totalPoints !== maxPoints} />
+      <ConfirmButton onClick={analyzeColors} disabled={totalPoints !== maxPoints || loading} />
+      {loading && <span className="text-xs text-gray-500 mt-2">Analisando afinidade...</span>}
+      {error && <span className="text-xs text-red-500 mt-2">{error}</span>}
     </div>
   );
 };
