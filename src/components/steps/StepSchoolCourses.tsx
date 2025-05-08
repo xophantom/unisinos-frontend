@@ -6,7 +6,7 @@ const StepSchoolCourses: React.FC = () => {
   const color = SCHOOL_COLORS[school?.name ?? ''] || '#008FD5';
 
   return (
-    <div className="w-full max-w-xs mx-auto bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
+    <div className="w-full max-w-lg mx-auto bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
       <h2 className="text-base font-semibold mb-1" style={{ color }}>Parabéns!<br />Você tem afinidade com a</h2>
       <h1 className="text-xl font-medium mb-2" style={{ color }}>ESCOLA DE<br />
         <span className="text-2xl font-bold" style={{ color }}>{school?.name?.toUpperCase()}</span></h1>

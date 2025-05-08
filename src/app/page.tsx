@@ -1,11 +1,11 @@
 "use client"
 import React from 'react';
-import Background from '@/components/Background';
+import Background from '@/components/common/Background';
 import { PointsProvider, usePoints } from '@/context/PointsContext';
-import StepSelectPoints from '@/components/StepSelectPoints';
-import StepSchoolCourses from '@/components/StepSchoolCourses';
-import StepProfessions from '@/components/StepProfessions';
-import StepQRCode from '@/components/StepQRCode';
+import StepSelectPoints from '@/components/steps/StepSelectPoints';
+import StepSchoolCourses from '@/components/steps/StepSchoolCourses';
+import StepProfessions from '@/components/steps/StepProfessions';
+import StepQRCode from '@/components/steps/StepQRCode';
 
 const MainContent = () => {
   const { step } = usePoints();

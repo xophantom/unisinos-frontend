@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './Header';
-import ColorBox from './ColorBox';
-import ConfirmButton from './ConfirmButton';
+import Header from '../common/Header';
+import ColorBox from '../common/ColorBox';
+import ConfirmButton from '../common/ConfirmButton';
 import { usePoints } from '@/context/PointsContext';
 
 const colorOptions = [

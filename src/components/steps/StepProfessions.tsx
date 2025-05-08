@@ -7,7 +7,7 @@ const StepProfessions: React.FC = () => {
   if (!selectedCourse) return null;
 
   return (
-    <div className="w-full max-w-xs mx-auto bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
+    <div className="w-full max-w-lg mx-auto bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
       <p className="text-sm text-gray-700 mb-2">
         Aqui estão algumas das profissões que você poderá exercer se formando na graduação de
         <span className="block font-bold text-blue-700">{selectedCourse.name}:</span>
