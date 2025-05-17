@@ -24,12 +24,15 @@ const StepTiebreaker = () => {
         <p className="text-center text-gray-600 mb-8">
         Leia com atenção e escolha o que mais combina com o seu jeito de pensar, agir e se expressar.
         </p>
+        
         <div className="flex flex-col items-center space-y-4">
           {schoolMatches.map((match) => (
             <ColorBox
               key={match.school.id}
+              width="w-150"
+              height="h-20"
               color={SCHOOL_COLORS[match.school.name]}
-              label={match.school.name}
+              label={match.school.quality}
               onClick={() => handleSchoolSelect(match)}
             />
           ))}

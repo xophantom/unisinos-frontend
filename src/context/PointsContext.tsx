@@ -19,6 +19,7 @@ interface School {
   name: string;
   color: string;
   url: string;
+  quality: string;
   isActive: boolean;
 }
 
