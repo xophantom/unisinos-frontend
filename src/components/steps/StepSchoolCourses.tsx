@@ -10,6 +10,7 @@ const getSchoolPreposition = (schoolName: string): string => {
 const StepSchoolCourses: React.FC = () => {
   const { school, courses, selectCourse, setStep } = usePoints();
   const color = SCHOOL_COLORS[school?.name ?? ''] || '#008FD5';
+  const isDireito = school?.name === 'Direito';
 
   const schoolTitle = school?.name ? (
     <>
@@ -23,12 +24,12 @@ const StepSchoolCourses: React.FC = () => {
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
         <h2 className="text-lg font-semibold mb-1" style={{ color }}>Parabéns!<br />Você tem afinidade com a</h2>
         <h1 className="text-xl font-medium mb-2" style={{ color }}>{schoolTitle}</h1>
-        <p className="text-lg text-gray-600 mb-4">Clique para ver os cursos referente a essa Escola:</p>
-        <div className="grid grid-cols-2 gap-2 w-full mb-4">
+        <p className="text-lg text-gray-600 mb-4">Clique no seu curso de interesse e conheça algumas profissões que você poderá seguir.</p>
+        <div className={`${isDireito ? 'flex justify-center' : 'grid grid-cols-2'} gap-2 w-full mb-4`}>
           {courses.map((course) => (
             <button
               key={course.id}
-              className="text-white rounded-full px-2 py-2 text-xs font-semibold transition w-full"
+              className={`text-white rounded-full px-2 py-2 text-xs font-semibold transition ${isDireito ? 'w-128' : 'w-full'}`}
               style={{ backgroundColor: color }}
               onClick={() => selectCourse(course)}
             >
