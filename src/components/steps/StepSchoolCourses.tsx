@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePoints, SCHOOL_COLORS } from '@/context/PointsContext';
+import ColorBox from '@/components/common/ColorBox';
 
 const getSchoolPreposition = (schoolName: string): string => {
   if (schoolName === 'Politécnica') return '';
@@ -25,27 +26,27 @@ const StepSchoolCourses: React.FC = () => {
         <h2 className="text-lg font-semibold mb-1" style={{ color }}>Parabéns!<br />Você tem afinidade com a</h2>
         <h1 className="text-xl font-medium mb-2" style={{ color }}>{schoolTitle}</h1>
         <p className="text-lg text-gray-600 mb-4">Clique no seu curso de interesse e conheça algumas profissões que você poderá seguir.</p>
-        <div className={`${isDireito ? 'flex justify-center' : 'grid grid-cols-2'} gap-2 w-full mb-4`}>
+        <div className={`${isDireito ? 'flex justify-center' : 'grid grid-cols-2'} gap-4 w-full mb-4`}>
           {courses.map((course) => (
-            <button
+            <ColorBox
               key={course.id}
-              className={`text-white rounded-full px-2 py-2 text-xs font-semibold transition ${isDireito ? 'w-128' : 'w-full'}`}
-              style={{ backgroundColor: color }}
+              color={color}
+              label={course.name}
+              width={isDireito ? 'w-128' : 'w-full'}
+              height="h-12"
               onClick={() => selectCourse(course)}
-            >
-              {course.name}
-            </button>
+            />
           ))}
         </div>
       </div>
       <div className="absolute left-1/2 -translate-x-1/2 -bottom-6 w-11/12 max-w-xs">
-        <button
-          className="w-full px-4 py-2 text-white rounded-full font-semibold"
-          style={{ backgroundColor: color }}
+        <ColorBox
+          color={color}
+          label="Voltar"
+          width="w-full"
+          height="h-12"
           onClick={() => setStep(0)}
-        >
-          Voltar
-        </button>
+        />
       </div>
     </div>
   );
