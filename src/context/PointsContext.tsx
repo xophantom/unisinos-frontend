@@ -22,6 +22,20 @@ interface School {
   isActive: boolean;
 }
 
+interface SchoolMatch {
+  school: School;
+  colorCount: number;
+  percentage: number;
+  courses: Course[];
+}
+
+interface ColorAnalysis {
+  schools: SchoolMatch[];
+  colorDistribution: Record<string, number>;
+  percentageDistribution: Record<string, number>;
+  hasTie: boolean;
+}
+
 export const SCHOOL_COLORS: Record<string, string> = {
   'Direito': '#ED174C',
   'Gestão e Negócios': '#008FD5',
@@ -56,6 +70,12 @@ interface PointsContextProps {
   error: string | null;
   totemId: string;
   setTotemId: (id: string) => void;
+  schoolMatches: SchoolMatch[];
+  setSchoolMatches: React.Dispatch<React.SetStateAction<SchoolMatch[]>>;
+  hasTie: boolean;
+  setHasTie: React.Dispatch<React.SetStateAction<boolean>>;
+  setSchool: (school: School | null) => void;
+  setCourses: (courses: Course[]) => void;
 }
 
 const PointsContext = createContext<PointsContextProps | undefined>(undefined);
@@ -72,6 +92,8 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [totemId, setTotemId] = useState('');
+  const [schoolMatches, setSchoolMatches] = useState<SchoolMatch[]>([]);
+  const [hasTie, setHasTie] = useState(false);
 
   const reset = () => {
     setPoints(Array(COLOR_COUNT).fill(0));
@@ -80,6 +102,8 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
     setSchool(null);
     setCourses([]);
     setError(null);
+    setSchoolMatches([]);
+    setHasTie(false);
   };
 
   const selectCourse = (course: Course) => {
@@ -96,10 +120,17 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
         totemId,
         colors,
       };
-      const response = await api.post('/totem/analyze-colors', body);
-      setSchool(response.data.school);
-      setCourses(response.data.courses);
-      setStep(1);
+      const response = await api.post<ColorAnalysis>('/totem/123/analyze-colors', body);
+      setSchoolMatches(response.data.schools);
+      setHasTie(response.data.hasTie);
+      
+      if (!response.data.hasTie && response.data.schools.length > 0) {
+        setSchool(response.data.schools[0].school);
+        setCourses(response.data.schools[0].courses);
+        setStep(1);
+      } else if (response.data.hasTie) {
+        setStep(1.5); // Novo step para desempate
+      }
     } catch {
       setError('Erro ao analisar as cores. Tente novamente.');
     } finally {
@@ -124,6 +155,12 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
       error,
       totemId,
       setTotemId,
+      schoolMatches,
+      setSchoolMatches,
+      hasTie,
+      setHasTie,
+      setSchool,
+      setCourses,
     }}>
       {children}
     </PointsContext.Provider>
