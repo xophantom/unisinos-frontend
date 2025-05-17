@@ -8,7 +8,7 @@ const StepTiebreaker = () => {
   const handleSchoolSelect = (schoolMatch: typeof schoolMatches[0]) => {
     setSchool(schoolMatch.school);
     setCourses(schoolMatch.courses);
-    setStep(2);
+    setStep(1);
   };
 
   return (
