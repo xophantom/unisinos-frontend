@@ -11,14 +11,15 @@ const StepQRCode: React.FC = () => {
         <p className="text-xl font-medium mb-4" style={{ color: '#194db2' }}>
           Leia o QR Code e Comece Seu Caminho Aqui Na Unisinos:
         </p>
-        <div className="w-60 h-60 bg-indigo-900 rounded-xl mx-auto mb-2 flex items-center justify-center">
+        <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 bg-indigo-900 rounded-xl mx-auto mb-2 flex items-center justify-center">
           <QRCodeSVG
             value={school?.url || 'https://www.unisinos.br'}
-            size={200}
+            size={180}
             level="H"
             includeMargin={false}
             bgColor="#312c85"
             fgColor="#ffffff"
+            className="p-2"
           />
         </div>
         <span className="text-gray-600 text-lg mb-4">Bom evento!</span>
