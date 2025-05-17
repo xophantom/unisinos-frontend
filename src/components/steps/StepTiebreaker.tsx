@@ -1,6 +1,5 @@
 import React from 'react';
 import { usePoints, SCHOOL_COLORS } from '@/context/PointsContext';
-import { Card } from '@/components/ui/card';
 import ColorBox from '@/components/common/ColorBox';
 
 const StepTiebreaker = () => {
@@ -13,9 +12,9 @@ const StepTiebreaker = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-md p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center mb-6">
+    <div style={{width: '70%'}} className="relative ml-24 mr-24">
+      <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg">
+      <h1 className="text-2xl font-bold text-center mb-6">
           Escolha uma Escola
         </h1>
         <p className="text-center text-gray-600 mb-8">
@@ -31,7 +30,7 @@ const StepTiebreaker = () => {
             />
           ))}
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
