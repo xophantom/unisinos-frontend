@@ -1,16 +1,28 @@
 import React from 'react';
 import { usePoints, SCHOOL_COLORS } from '@/context/PointsContext';
 
+const getSchoolPreposition = (schoolName: string): string => {
+  if (schoolName === 'Politécnica') return '';
+  if (schoolName === 'Indústria Criativa') return 'DA';
+  return 'DE';
+};
+
 const StepSchoolCourses: React.FC = () => {
   const { school, courses, selectCourse, setStep } = usePoints();
   const color = SCHOOL_COLORS[school?.name ?? ''] || '#008FD5';
+
+  const schoolTitle = school?.name ? (
+    <>
+      ESCOLA {getSchoolPreposition(school.name)}<br />
+      <span className="text-2xl font-bold" style={{ color }}>{school.name.toUpperCase()}</span>
+    </>
+  ) : '';
 
   return (
     <div style={{width: '70%'}} className="relative ml-24 mr-24">
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
         <h2 className="text-lg font-semibold mb-1" style={{ color }}>Parabéns!<br />Você tem afinidade com a</h2>
-        <h1 className="text-xl font-medium mb-2" style={{ color }}>ESCOLA DE<br />
-          <span className="text-2xl font-bold" style={{ color }}>{school?.name?.toUpperCase()}</span></h1>
+        <h1 className="text-xl font-medium mb-2" style={{ color }}>{schoolTitle}</h1>
         <p className="text-lg text-gray-600 mb-4">Clique para ver os cursos referente a essa Escola:</p>
         <div className="grid grid-cols-2 gap-2 w-full mb-4">
           {courses.map((course) => (
