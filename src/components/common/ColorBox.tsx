@@ -3,7 +3,7 @@ import React from 'react';
 interface ColorBoxProps {
   color: string;
   textColor?: string;
-  textWeight?: 'normal' | 'bold' | '600' | '700' | '800' | '900';
+  textWeight?: 'normal' | 'bold';
   label: string;
   onClick?: () => void;
   width?: string;

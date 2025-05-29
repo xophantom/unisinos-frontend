@@ -25,7 +25,7 @@ const StepProfessions: React.FC = () => {
               key={prof.id}
               color="#E5E7EB"
               textColor="#194db2"
-              textWeight="font-bold"
+              textWeight="normal"
               label={`${idx + 1}- ${prof.name}`}
               width="w-full"
               height="h-12"
