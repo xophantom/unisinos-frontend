@@ -13,7 +13,7 @@ interface ColorBoxProps {
 
 const ColorBox: React.FC<ColorBoxProps> = ({ 
   color, 
-  textColor = 'text-blue-800',
+  textColor = 'text-white',
   label, 
   textWeight = 'font-bold',
   onClick,
