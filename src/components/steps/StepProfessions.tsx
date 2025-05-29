@@ -1,9 +1,11 @@
 import React from "react";
-import { usePoints } from "@/context/PointsContext";
+import { SCHOOL_COLORS, usePoints } from "@/context/PointsContext";
 import ColorBox from "@/components/common/ColorBox";
 
 const StepProfessions: React.FC = () => {
-  const { selectedCourse, setStep } = usePoints();
+  const { selectedCourse, setStep, school } = usePoints();
+  const color = SCHOOL_COLORS[school?.name ?? ''] || '#008FD5';
+
 
   if (!selectedCourse) return null;
 
@@ -11,8 +13,8 @@ const StepProfessions: React.FC = () => {
     <div style={{ width: "70%" }} className="relative ml-24 mr-24">
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
         <p className="text-lg mb-2 " style={{ color: "#194db2" }}>
-          Aqui estão algumas das profissões que você poderá exercer se formando
-          na graduação de
+        Aqui estão algumas carreiras que
+        você poderá seguir ao se formar em
           <span className="block font-bold" style={{ color: "#194db2" }}>
             {selectedCourse.name}:
           </span>
@@ -22,6 +24,8 @@ const StepProfessions: React.FC = () => {
             <ColorBox
               key={prof.id}
               color="#E5E7EB"
+              textColor="#194db2"
+              textWeight="font-bold"
               label={`${idx + 1}- ${prof.name}`}
               width="w-full"
               height="h-12"
@@ -34,13 +38,15 @@ const StepProfessions: React.FC = () => {
         <div className="flex justify-center gap-8 w-full">
           <ColorBox
             color="#194db2"
+            textColor="#3498db"
             label="Voltar"
             width="w-60"
             height="h-12"
             onClick={() => setStep(1)}
           />
           <ColorBox
-            color="#194db2"
+            color={color}
+            textColor="font-white"
             label="Quero saber mais!"
             width="w-90"
             height="h-12"

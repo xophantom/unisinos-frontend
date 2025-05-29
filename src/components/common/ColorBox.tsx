@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+ 
+import React from 'react';
 
 interface ColorBoxProps {
   color: string;
+  textColor?: string;
+  textWeight?: string;
   label: string;
-  selected?: boolean;
   onClick?: () => void;
   width?: string;
   height?: string;
@@ -12,21 +13,13 @@ interface ColorBoxProps {
 
 const ColorBox: React.FC<ColorBoxProps> = ({ 
   color, 
+  textColor = 'text-blue-800',
   label, 
-  selected, 
+  textWeight = 'font-bold',
   onClick,
   width = 'w-40',
   height = 'h-22'
 }) => {
-  const [isPressed, setIsPressed] = useState(false);
-
-  const handlePressIn = () => {
-    setIsPressed(true);
-  };
-
-  const handlePressOut = () => {
-    setIsPressed(false);
-  };
 
   return (
     <button
@@ -35,10 +28,9 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         ${height} 
         rounded-2xl 
         flex 
+        font-bold
         items-center 
         justify-center 
-        font-bold 
-        text-white 
         text-2xl 
         shadow-md 
         transition-all 
@@ -51,13 +43,9 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         hover:opacity-90
         hover:scale-[1.02]
       `}
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: color, color: textColor, fontWeight: textWeight }}
       onClick={onClick}
-      onMouseDown={handlePressIn}
-      onMouseUp={handlePressOut}
-      onMouseLeave={handlePressOut}
-      onTouchStart={handlePressIn}
-      onTouchEnd={handlePressOut}
+
     >
       {label}
     </button>

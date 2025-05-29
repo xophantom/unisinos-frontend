@@ -41,6 +41,7 @@ const StepSchoolCourses: React.FC = () => {
       </div>
       <div className="absolute left-1/2 -translate-x-1/2 -bottom-6 w-11/12 max-w-xs">
         <ColorBox
+          textColor="#3498db"
           color={color}
           label="Voltar"
           width="w-full"
