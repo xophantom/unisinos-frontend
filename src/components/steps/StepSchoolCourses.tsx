@@ -27,15 +27,19 @@ const StepSchoolCourses: React.FC = () => {
         <h1 className="text-xl font-medium mb-2" style={{ color }}>{schoolTitle}</h1>
         <p className="text-lg text-gray-600 mb-4">Clique no seu curso de interesse e conheça algumas profissões que você poderá seguir.</p>
         <div className={`${isDireito ? 'flex justify-center' : 'grid grid-cols-2'} gap-4 w-full mb-4`}>
-          {courses.map((course) => (
-            <ColorBox
+          {courses.map((course, index) => (
+            <div 
               key={course.id}
-              color={color}
-              label={course.name}
-              width={isDireito ? 'w-128' : 'w-full'}
-              height="h-12"
-              onClick={() => selectCourse(course)}
-            />
+              className={!isDireito && index === courses.length - 1 && courses.length % 2 !== 0 ? 'col-span-2 flex justify-center' : ''}
+            >
+              <ColorBox
+                color={color}
+                label={course.name}
+                width={isDireito ? 'w-128' : index === courses.length - 1 && courses.length % 2 !== 0 ? 'w-1/2' : 'w-full'}
+                height="h-12"
+                onClick={() => selectCourse(course)}
+              />
+            </div>
           ))}
         </div>
       </div>

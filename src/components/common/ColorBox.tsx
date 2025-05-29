@@ -1,10 +1,9 @@
- 
 import React from 'react';
 
 interface ColorBoxProps {
   color: string;
   textColor?: string;
-  textWeight?: string;
+  textWeight?: 'normal' | 'bold' | '600' | '700' | '800' | '900';
   label: string;
   onClick?: () => void;
   width?: string;
@@ -15,7 +14,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
   color, 
   textColor = 'text-white',
   label, 
-  textWeight = 'font-bold',
+  textWeight = 'bold',
   onClick,
   width = 'w-40',
   height = 'h-22'
@@ -28,7 +27,6 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         ${height} 
         rounded-2xl 
         flex 
-        font-bold
         items-center 
         justify-center 
         text-2xl 
