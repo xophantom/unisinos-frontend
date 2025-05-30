@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ColorBoxProps {
   color: string;
-  textColor?: string;
+  textColor?: 'text-white' | 'text-black' | 'text-gray-600' | string;
   textWeight?: 'normal' | 'bold';
   label: string;
   onClick?: () => void;
@@ -32,6 +32,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         items-center 
         justify-center 
         text-2xl 
+        ${textColor}
         shadow-md 
         transition-all 
         duration-150 
@@ -43,7 +44,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         hover:opacity-90
         hover:scale-[1.02]
       `}
-      style={{ backgroundColor: color, color: textColor, fontWeight: textWeight }}
+      style={{ backgroundColor: color, fontWeight: textWeight }}
       onClick={onClick}
     >
       {label}
