@@ -29,7 +29,7 @@ const StepTiebreaker = () => {
           {schoolMatches.map((match) => (
             <ColorBox
               key={match.school.id}
-              width="w-150"
+              width="w-125"
               height="h-20"
               color={SCHOOL_COLORS[match.school.name]}
               label={match.school.quality}
