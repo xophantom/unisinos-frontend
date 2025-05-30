@@ -42,7 +42,6 @@ const StepSelectPoints: React.FC = () => {
               key={idx}
               color={opt.color}
               label={points[idx] > 0 ? `${points[idx]}x` : ''}
-              selected={points[idx] > 0}
               onClick={() => handleBoxClick(idx)}
             />
           ))}

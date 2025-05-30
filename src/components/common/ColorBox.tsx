@@ -8,6 +8,7 @@ interface ColorBoxProps {
   onClick?: () => void;
   width?: string;
   height?: string;
+  selected?: boolean;
 }
 
 const ColorBox: React.FC<ColorBoxProps> = ({ 
@@ -17,7 +18,8 @@ const ColorBox: React.FC<ColorBoxProps> = ({
   textWeight = 'bold',
   onClick,
   width = 'w-40',
-  height = 'h-22'
+  height = 'h-22',
+  selected = false
 }) => {
 
   return (
@@ -35,7 +37,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         duration-150 
         ease-in-out 
         border-4 
-        border-transparent
+        ${selected ? 'border-white' : 'border-transparent'}
         active:scale-95
         active:opacity-80
         hover:opacity-90
@@ -43,7 +45,6 @@ const ColorBox: React.FC<ColorBoxProps> = ({
       `}
       style={{ backgroundColor: color, color: textColor, fontWeight: textWeight }}
       onClick={onClick}
-
     >
       {label}
     </button>
