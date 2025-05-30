@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ColorBoxProps {
   color: string;
-  textColor?: 'text-white' | 'text-black' | 'text-gray-600' | string;
+  textColor?: string;
   textWeight?: 'normal' | 'bold';
   label: string;
   onClick?: () => void;
@@ -21,6 +21,10 @@ const ColorBox: React.FC<ColorBoxProps> = ({
   height = 'h-22',
   selected = false
 }) => {
+  const isHexColor = textColor?.startsWith('#');
+  
+  const textColorStyle = isHexColor ? { color: textColor } : {};
+  const textColorClass = !isHexColor ? textColor : '';
 
   return (
     <button
@@ -32,7 +36,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         items-center 
         justify-center 
         text-2xl 
-        ${textColor}
+        ${textColorClass}
         shadow-md 
         transition-all 
         duration-150 
@@ -44,7 +48,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         hover:opacity-90
         hover:scale-[1.02]
       `}
-      style={{ backgroundColor: color, fontWeight: textWeight }}
+      style={{ backgroundColor: color, fontWeight: textWeight, ...textColorStyle }}
       onClick={onClick}
     >
       {label}
