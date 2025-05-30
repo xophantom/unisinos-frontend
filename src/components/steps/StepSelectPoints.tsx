@@ -41,6 +41,7 @@ const StepSelectPoints: React.FC = () => {
             <ColorBox
               key={idx}
               color={opt.color}
+              textColor={"text-white"}
               label={points[idx] > 0 ? `${points[idx]}x` : ''}
               onClick={() => handleBoxClick(idx)}
             />
