@@ -4,6 +4,7 @@ interface ColorBoxProps {
   color: string;
   textColor?: string;
   textWeight?: 'normal' | 'bold';
+  textSize?: 'text-sm' | 'text-base' | 'text-lg' | 'text-xl' | 'text-2xl' | 'text-3xl' | 'text-4xl';
   label: string;
   onClick?: () => void;
   width?: string;
@@ -16,6 +17,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
   textColor = 'text-white',
   label, 
   textWeight = 'bold',
+  textSize = 'text-2xl',
   onClick,
   width = 'w-40',
   height = 'h-22',
@@ -35,7 +37,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         flex 
         items-center 
         justify-center 
-        text-2xl 
+        ${textSize}
         ${textColorClass}
         shadow-md 
         transition-all 
