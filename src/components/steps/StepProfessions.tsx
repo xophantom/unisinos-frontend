@@ -46,7 +46,7 @@ const StepProfessions: React.FC = () => {
           />
           <ColorBox
             color={color}
-            textColor="font-white"
+            textColor="#ffffff"
             label="Quero saber mais!"
             width="w-90"
             height="h-12"
