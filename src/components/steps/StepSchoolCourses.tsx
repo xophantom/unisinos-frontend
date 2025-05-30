@@ -34,8 +34,8 @@ const StepSchoolCourses: React.FC = () => {
             >
               <ColorBox
                 color={color}
-                textWeight="normal"
-                textSize="text-lg"
+                textWeight="bold"
+                textSize="text-base"
                 label={course.name}
                 width={isDireito ? 'w-128' : index === courses.length - 1 && courses.length % 2 !== 0 ? 'w-1/2' : 'w-full'}
                 height="h-12"
