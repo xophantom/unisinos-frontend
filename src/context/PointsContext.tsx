@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import api from '@/lib/axios';
+import { getTotemId } from '@/lib/totemId';
 
 interface Profession {
   id: number;
@@ -96,6 +97,14 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
   const [schoolMatches, setSchoolMatches] = useState<SchoolMatch[]>([]);
   const [hasTie, setHasTie] = useState(false);
 
+  useEffect(() => {
+    const initTotemId = async () => {
+      const id = await getTotemId();
+      setTotemId(id);
+    };
+    initTotemId();
+  }, []);
+
   const reset = () => {
     setPoints(Array(COLOR_COUNT).fill(0));
     setStep(0);
@@ -118,10 +127,9 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
     try {
       const colors: string[] = points.flatMap((count, idx) => Array(count).fill(COLOR_LABELS[idx]));
       const body = {
-        totemId,
         colors,
       };
-      const response = await api.post<ColorAnalysis>('/totem/123/analyze-colors', body);
+      const response = await api.post<ColorAnalysis>(`/totem/${totemId}/analyze-colors`, body);
       setSchoolMatches(response.data.schools);
       setHasTie(response.data.hasTie);
       
