@@ -30,7 +30,7 @@ const StepSelectPoints: React.FC = () => {
   const handleClear = () => setPoints(Array(colorOptions.length).fill(0));
 
   return (
-    <div style={{width: '70%'}} className="relative ml-24 mr-24">
+    <div style={{width: '70%'}} className="relative ml-24 mr-24 mb-18">
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg">
         <Header />
         <p className="text-center text-gray-700 text-lg mb-4">

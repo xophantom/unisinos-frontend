@@ -8,7 +8,7 @@ const StepQRCode: React.FC = () => {
   const color = SCHOOL_COLORS[school?.name ?? ''] || '#008FD5';
 
   return (
-    <div style={{width: '70%'}} className="relative ml-24 mr-24">
+    <div style={{width: '70%'}} className="relative ml-24 mr-24 mb-18">
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
         <p className="text-xl font-bold mb-4" style={{ color: '#194db2' }}>
           Leia o QR Code e Comece Seu Caminho na Unisinos:

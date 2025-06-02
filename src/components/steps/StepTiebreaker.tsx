@@ -12,7 +12,7 @@ const StepTiebreaker = () => {
   };
 
   return (
-    <div style={{ width: "70%" }} className="relative ml-24 mr-24">
+    <div style={{ width: "70%" }} className="relative ml-24 mr-24 mb-18">
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg">
         <h1
           className="text-2xl font-bold text-center"

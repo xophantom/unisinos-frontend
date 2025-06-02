@@ -10,7 +10,7 @@ const StepProfessions: React.FC = () => {
   if (!selectedCourse) return null;
 
   return (
-    <div style={{ width: "100%" }} className="relative ml-24 mr-24">
+    <div style={{ width: "100%" }} className="relative ml-24 mr-24 mb-18">
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
         <p className="text-lg mb-2 " style={{ color: "#194db2" }}>
         Aqui estão algumas carreiras que
