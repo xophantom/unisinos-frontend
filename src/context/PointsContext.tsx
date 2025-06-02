@@ -130,7 +130,7 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
         setCourses(response.data.schools[0].courses);
         setStep(1);
       } else if (response.data.hasTie) {
-        setStep(1.5); // Novo step para desempate
+        setStep(1.5); 
       }
     } catch {
       setError('Erro ao analisar as cores. Tente novamente.');
