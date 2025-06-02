@@ -82,7 +82,7 @@ interface PointsContextProps {
 
 const PointsContext = createContext<PointsContextProps | undefined>(undefined);
 
-const MAX_POINTS = 7;
+const MAX_POINTS = 3;
 const COLOR_COUNT = 6;
 
 export const PointsProvider = ({ children }: { children: ReactNode }) => {
