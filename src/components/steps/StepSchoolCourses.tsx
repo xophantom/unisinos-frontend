@@ -21,7 +21,7 @@ const StepSchoolCourses: React.FC = () => {
   ) : '';
 
   return (
-    <div style={{width: '70%'}} className="relative ml-24 mr-24 mb-18">
+    <div style={{width: '100%'}} className="relative ml-24 mr-24 mb-18">
       <div className="bg-white rounded-2xl p-6 flex flex-col items-center shadow-lg text-center">
         <h2 className="text-lg mb-1" style={{ color: '#194db2' }}>Parabéns!<br />Você tem afinidade com a</h2>
         <h1 className="text-xl font-medium mb-2" style={{ color }}>{schoolTitle}</h1>
