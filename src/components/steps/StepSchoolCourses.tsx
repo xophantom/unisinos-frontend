@@ -13,8 +13,8 @@ const StepSchoolCourses: React.FC = () => {
   const color = SCHOOL_COLORS[school?.name ?? ''] || '#008FD5';
   const isDireito = school?.name === 'Direito';
 
-  const handleCourseSelect = async (course: Course) => {
-    await registerInteraction(course.id);
+  const handleCourseSelect = (course: Course) => {
+    registerInteraction(course.id);
     selectCourse(course);
   };
 

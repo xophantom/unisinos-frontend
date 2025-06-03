@@ -68,7 +68,7 @@ interface PointsContextProps {
   selectedCourse: Course | null;
   selectCourse: (course: Course) => void;
   analyzeColors: () => Promise<void>;
-  registerInteraction: (courseId: number) => Promise<void>;
+  registerInteraction: (courseId: number) => void;
   loading: boolean;
   error: string | null;
   totemId: string;
@@ -148,22 +148,19 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const registerInteraction = async (courseId: number) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const colors: string[] = points.flatMap((count, idx) => Array(count).fill(COLOR_LABELS[idx]));
-      const body = {
-        selectedColors: colors,
-        courseIds: [courseId],
-      };
-      await api.post(`/totem/${totemId}/register-interaction`, body);
-      setStep(2); // Avança para o próximo passo após registrar
-    } catch {
-      setError('Erro ao registrar interação. Tente novamente.');
-    } finally {
-      setLoading(false);
-    }
+  const registerInteraction = (courseId: number) => {
+    const colors: string[] = points.flatMap((count, idx) => Array(count).fill(COLOR_LABELS[idx]));
+    const body = {
+      selectedColors: colors,
+      courseIds: [courseId],
+    };
+    
+    // Faz a requisição em background, sem await
+    api.post(`/totem/${totemId}/register-interaction`, body)
+      .catch(() => {
+        // Silenciosamente ignora erros, já que é só um log
+        console.error('Erro ao registrar interação');
+      });
   };
 
   return (
