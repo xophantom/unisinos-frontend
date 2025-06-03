@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePoints, SCHOOL_COLORS } from '@/context/PointsContext';
+import { usePoints, SCHOOL_COLORS, Course } from '@/context/PointsContext';
 import ColorBox from '@/components/common/ColorBox';
 
 const getSchoolPreposition = (schoolName: string): string => {
@@ -9,9 +9,14 @@ const getSchoolPreposition = (schoolName: string): string => {
 };
 
 const StepSchoolCourses: React.FC = () => {
-  const { school, courses, selectCourse, setStep } = usePoints();
+  const { school, courses, selectCourse, setStep, registerInteraction } = usePoints();
   const color = SCHOOL_COLORS[school?.name ?? ''] || '#008FD5';
   const isDireito = school?.name === 'Direito';
+
+  const handleCourseSelect = async (course: Course) => {
+    await registerInteraction(course.id);
+    selectCourse(course);
+  };
 
   const schoolTitle = school?.name ? (
     <>
@@ -39,7 +44,7 @@ const StepSchoolCourses: React.FC = () => {
                 label={course.name}
                 width={isDireito ? 'w-128' : index === courses.length - 1 && courses.length % 2 !== 0 ? 'w-1/2' : 'w-full'}
                 height="h-12"
-                onClick={() => selectCourse(course)}
+                onClick={() => handleCourseSelect(course)}
               />
             </div>
           ))}

@@ -2,20 +2,20 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import api from '@/lib/axios';
 import { getTotemId } from '@/lib/totemId';
 
-interface Profession {
+export interface Profession {
   id: number;
   name: string;
   description: string | null;
 }
 
-interface Course {
+export interface Course {
   id: number;
   name: string;
   description: string | null;
   professions: Profession[];
 }
 
-interface School {
+export interface School {
   id: number;
   name: string;
   color: string;
@@ -68,6 +68,7 @@ interface PointsContextProps {
   selectedCourse: Course | null;
   selectCourse: (course: Course) => void;
   analyzeColors: () => Promise<void>;
+  registerInteraction: (courseId: number) => Promise<void>;
   loading: boolean;
   error: string | null;
   totemId: string;
@@ -147,6 +148,24 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const registerInteraction = async (courseId: number) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const colors: string[] = points.flatMap((count, idx) => Array(count).fill(COLOR_LABELS[idx]));
+      const body = {
+        selectedColors: colors,
+        courseIds: [courseId],
+      };
+      await api.post(`/totem/${totemId}/register-interaction`, body);
+      setStep(2); // Avança para o próximo passo após registrar
+    } catch {
+      setError('Erro ao registrar interação. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <PointsContext.Provider value={{
       points,
@@ -160,6 +179,7 @@ export const PointsProvider = ({ children }: { children: ReactNode }) => {
       selectedCourse,
       selectCourse,
       analyzeColors,
+      registerInteraction,
       loading,
       error,
       totemId,
