@@ -18,9 +18,9 @@ const StepQRCode: React.FC = () => {
             size={230}
             level="H"
             includeMargin={false}
-            bgColor="#000000"
-            fgColor="#ffffff"
-            className="p-2"
+            bgColor="#ffffff"
+            fgColor="#000000"
+            className="p-2 bg-white rounded-lg"
           />
         <span className="text-gray-600 text-2xl mb-8 mt-8">Bom evento!</span>
       </div>
